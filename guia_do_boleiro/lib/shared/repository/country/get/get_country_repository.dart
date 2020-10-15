@@ -1,3 +1,4 @@
+import 'package:guia_do_boleiro/core/constants/texts.dart';
 import 'package:guia_do_boleiro/core/error/exception/exception.dart';
 import 'package:guia_do_boleiro/core/network/network_info.dart';
 import 'package:guia_do_boleiro/shared/datasource/country/get/get_country_remote_data_source.dart';
@@ -26,7 +27,10 @@ class GetCountryRepositoryImpl extends GetCountryRepository {
         return Left(NoInternetConnectionFailure());
       }
     } on ServerException {
-      return Left(ServerFailure());
+      return Left(ServerFailure(
+        title: getCountryRepositoryServerFailureTitle,
+        message: getCountryRepositoryServerFailureMessage
+      ));
     }
   }
 }

@@ -9,10 +9,11 @@ class NoInternetConnectionFailure extends Failure {
 }
 
 class ServerFailure extends Failure {
+  final String title;
   final String message;
 
-  ServerFailure({this.message});
+  ServerFailure({this.message, this.title});
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message, title];
 }

@@ -7,3 +7,6 @@ const textColor = Color(0xffFDFFFC);
 
 const positiveColor = Color(0xff2EC4B6);
 const negativeColor = Color(0xffE71D36);
+
+const loadingHighlightColor = Colors.white;
+var loadingBaseColor = Colors.grey[200];

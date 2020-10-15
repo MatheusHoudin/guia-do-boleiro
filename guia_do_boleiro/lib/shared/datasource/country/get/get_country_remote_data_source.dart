@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:guia_do_boleiro/core/error/exception/exception.dart';
 import 'package:guia_do_boleiro/shared/model/country.dart';
