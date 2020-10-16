@@ -73,10 +73,11 @@ class PickCountryPage extends StatelessWidget {
               ),
               Expanded(
                 flex: 1,
-                child: (GetCountriesController.to.isLoadingCountries.value ||
-                        GetSeasonsController.to.isLoadingSeasons.value)
-                    ? ContinueButtonLoading()
-                    : ContinueButton(),
+                child: GetBuilder<GetCountriesController>(
+                  builder: (c) => (c.isLoadingCountries.value)
+                      ? ContinueButtonLoading()
+                      : ContinueButton(),
+                )
               )
             ],
           ),
@@ -89,10 +90,7 @@ class PickCountryPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: RawMaterialButton(
-        onPressed: () => Get.toNamed(countryLeaguesBySeason,
-            arguments: CountryWithSeason(
-                country: GetCountriesController.to.getSelectedCountry(),
-                season: GetSeasonsController.to.season)),
+        onPressed: () => GetCountriesController.to.continueToCountryLeaguesPage(GetSeasonsController.to.season),
         fillColor: secondaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -110,16 +108,15 @@ class PickCountryPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Shimmer.fromColors(
-        highlightColor: Colors.white,
-        baseColor: Colors.grey[400],
+        highlightColor: loadingHighlightColor,
+        baseColor: loadingBaseColor,
         child: Container(
           height: 20,
           width: 30,
-          decoration:
-              BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-                color: Colors.white,
-              ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+            color: Colors.white,
+          ),
         ),
       ),
     );
@@ -152,8 +149,8 @@ class PickCountryPage extends StatelessWidget {
 
   Widget CountryLoading(double itemPadding) {
     return Shimmer.fromColors(
-      highlightColor: Colors.white,
-      baseColor: Colors.grey[400],
+      highlightColor: loadingHighlightColor,
+      baseColor: loadingBaseColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

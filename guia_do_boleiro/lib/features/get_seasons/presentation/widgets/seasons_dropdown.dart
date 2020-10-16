@@ -54,8 +54,8 @@ class SeasonsDropdown extends StatelessWidget {
 
   Widget SeasonsLoading() {
     return Shimmer.fromColors(
-      highlightColor: Colors.white,
-      baseColor: Colors.grey[400],
+      highlightColor: loadingHighlightColor,
+      baseColor: loadingBaseColor,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.red,

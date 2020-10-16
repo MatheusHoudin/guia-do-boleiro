@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:guia_do_boleiro/core/constants/assets.dart';
+import 'package:guia_do_boleiro/core/constants/routes.dart';
 import 'package:guia_do_boleiro/core/error/failure/failure.dart';
+import 'package:guia_do_boleiro/core/ui/one_button_dialog.dart';
 import 'package:guia_do_boleiro/features/pick_country/domain/usecase/get_countries_list_use_case.dart';
 import 'package:guia_do_boleiro/shared/model/country.dart';
+import 'package:guia_do_boleiro/shared/model/country_with_season.dart';
+import 'package:guia_do_boleiro/core/constants/texts.dart';
 
 class GetCountriesController extends GetxController {
   final GetCountriesListUseCase getCountriesListUseCase;
@@ -22,7 +27,17 @@ class GetCountriesController extends GetxController {
 
     result.fold((failure) {
       if (failure is ServerFailure) {
-        Get.defaultDialog(title: failure.title, content: Text(failure.message));
+        Get.dialog(OneButtonDialog(
+          title: failure.title,
+          message: failure.message,
+          image: sadIcon,
+        ));
+      }else{
+        Get.dialog(OneButtonDialog(
+          title: noInternetConnectionTitle,
+          message: noInternetConnectionMessage,
+          image: noInternetIcon,
+        ));
       }
     }, (countriesResult) {
       isLoadingCountries.value = false;
@@ -50,7 +65,23 @@ class GetCountriesController extends GetxController {
     update();
   }
 
-  Country getSelectedCountry() => countriesDispaly[lastSelectedIndex].country;
+  void continueToCountryLeaguesPage(String season) {
+    if (season.isEmpty) {
+      Get.defaultDialog(
+        title: notSelectedSeasonDialogTitle,
+        content: Text(notSelectedSeasonDialogBody),
+      );
+    }else{
+      Get.toNamed(countryLeaguesBySeason,
+          arguments: CountryWithSeason(
+              country: _getSelectedCountry(),
+              season: season
+          )
+      );
+    }
+  }
+
+  Country _getSelectedCountry() => countriesDispaly[lastSelectedIndex].country;
 }
 
 class CountryWithPadding {

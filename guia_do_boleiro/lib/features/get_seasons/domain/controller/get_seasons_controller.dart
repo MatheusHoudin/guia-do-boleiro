@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:guia_do_boleiro/core/constants/assets.dart';
+import 'package:guia_do_boleiro/core/constants/texts.dart';
 import 'package:guia_do_boleiro/core/error/failure/failure.dart';
+import 'package:guia_do_boleiro/core/ui/one_button_dialog.dart';
 import 'package:guia_do_boleiro/features/get_seasons/domain/usecase/get_seasons_use_case.dart';
 
 class GetSeasonsController extends GetxController {
@@ -20,11 +23,12 @@ class GetSeasonsController extends GetxController {
 
     response.fold(
       (failure) {
-        if(failure is ServerFailure) {
-          Get.defaultDialog(
-              title: failure.title,
-              content: Text(failure.message)
-          );
+        if (failure is ServerFailure) {
+          Get.dialog(OneButtonDialog(
+            title: failure.title,
+            message: failure.message,
+            image: sadIcon,
+          ));
         }
       },
       (seasonsResult) {
