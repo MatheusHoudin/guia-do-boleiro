@@ -1,2 +1,2 @@
 const pickCountryPageRoute = "/";
-const countryLeaguesBySeason = "/countryLeaguesBySeason";
+const countryLeaguesPageRoute = "/countryLeagues";

@@ -10,6 +10,7 @@ import 'package:guia_do_boleiro/features/pick_country/presentation/pages/pick_co
 
 void main() {
   runApp(GetMaterialApp(
+    debugShowCheckedModeBanner: false,
     title: appName,
     initialBinding: MainPageBindings(),
     initialRoute: pickCountryPageRoute,
@@ -20,7 +21,7 @@ void main() {
         binding: PickCountryPageBindings()
       ),
       GetPage(
-        name: countryLeaguesBySeason,
+        name: countryLeaguesPageRoute,
         page: () => CountryLeaguesPage(),
         binding: CountryLeaguesPageBindings()
       )

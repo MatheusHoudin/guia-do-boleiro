@@ -72,7 +72,7 @@ class GetCountriesController extends GetxController {
         content: Text(notSelectedSeasonDialogBody),
       );
     }else{
-      Get.toNamed(countryLeaguesBySeason,
+      Get.toNamed(countryLeaguesPageRoute,
           arguments: CountryWithSeason(
               country: _getSelectedCountry(),
               season: season

@@ -25,8 +25,8 @@ class League extends Equatable {
       leagueId: json['league_id'],
       name: json['name'],
       type: json['type'],
-      seasonStart: formatToBrazilianDate(json['season_start']),
-      seasonEnd: formatToBrazilianDate(json['season_end']),
+      seasonStart: json['season_start'].toString().isNotEmpty ? formatToBrazilianDate(json['season_start']) : null,
+      seasonEnd: json['season_end'].toString().isNotEmpty ? formatToBrazilianDate(json['season_end']) : null,
       logo: json['logo'],
       flag: json['flag']
     );

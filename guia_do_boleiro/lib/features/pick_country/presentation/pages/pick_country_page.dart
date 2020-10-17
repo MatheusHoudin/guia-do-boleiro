@@ -4,15 +4,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guia_do_boleiro/core/constants/assets.dart';
 import 'package:guia_do_boleiro/core/constants/colors.dart';
-import 'package:guia_do_boleiro/core/constants/routes.dart';
 import 'package:guia_do_boleiro/core/constants/texts.dart';
 import 'package:guia_do_boleiro/features/get_seasons/domain/controller/get_seasons_controller.dart';
 import 'package:guia_do_boleiro/features/get_seasons/presentation/widgets/seasons_dropdown.dart';
 import 'package:guia_do_boleiro/features/pick_country/domain/controller/get_countries_controller.dart';
 import 'package:guia_do_boleiro/shared/model/country.dart';
-import 'package:guia_do_boleiro/shared/model/country_with_season.dart';
 import 'package:guia_do_boleiro/shared/widgets/loading_ball.dart';
-import 'package:shimmer/shimmer.dart';
 
 class PickCountryPage extends StatelessWidget {
   final pageViewController = PageController(
@@ -73,13 +70,12 @@ class PickCountryPage extends StatelessWidget {
                 height: 20,
               ),
               Expanded(
-                flex: 1,
-                child: GetBuilder<GetCountriesController>(
-                  builder: (c) => (c.isLoadingCountries.value)
-                      ? Container()
-                      : ContinueButton(),
-                )
-              )
+                  flex: 1,
+                  child: GetBuilder<GetCountriesController>(
+                      builder: (c) => Visibility(
+                            visible: !c.isLoadingCountries.value,
+                            child: ContinueButton(),
+                          )))
             ],
           ),
         ),
@@ -91,7 +87,8 @@ class PickCountryPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: RawMaterialButton(
-        onPressed: () => GetCountriesController.to.continueToCountryLeaguesPage(GetSeasonsController.to.season),
+        onPressed: () => GetCountriesController.to
+            .continueToCountryLeaguesPage(GetSeasonsController.to.season),
         fillColor: secondaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(4)),
@@ -152,15 +149,18 @@ class PickCountryPage extends StatelessWidget {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.white, width: 2),
                   shape: BoxShape.rectangle),
-              child: ClipRRect(
-                child: SvgPicture.network(
-                  country.flagUrl,
-                  fit: BoxFit.fill,
-                  placeholderBuilder: (context) => Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 40
+              child: Hero(
+                tag: country.country,
+                child: ClipRRect(
+                  child: SvgPicture.network(
+                    country.flagUrl,
+                    fit: BoxFit.fill,
+                    placeholderBuilder: (context) => Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 40),
+                      child: LoadingBall(
+                        size: 60,
+                      ),
                     ),
-                    child: LoadingBall(size: 60,),
                   ),
                 ),
               ),

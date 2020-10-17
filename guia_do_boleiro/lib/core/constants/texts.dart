@@ -16,6 +16,12 @@ const notSelectedSeasonDialogTitle = "Ops...";
 const notSelectedSeasonDialogBody = "Selecione uma temporada antes de prosseguir";
 //pick_country_page
 
+//country_leagues_page
+const countryLeaguesPageInfo = 'Selecione uma das ligas abaixo para ver times, jogos e estatísticas.';
+const countryLeaguesPageFilterLeagueHint = 'Qual liga você procura?';
+const countryLeaguesPageThereAreNoLeagues = 'Não existem ligas desse pais no ano selecionado, que tal selecionar outro período?';
+//country_leagues_page
+
 // get_country_repository
 const getCountryRepositoryServerFailureTitle = 'Ocorreu um erro';
 const getCountryRepositoryServerFailureMessage = 'Não foi possível buscar os países, tente novamente';
