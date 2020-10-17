@@ -26,3 +26,7 @@ const getSeasonsRepositoryServerFailureTitle = 'Ocorreu um erro';
 const getSeasonsRepositoryServerFailureMessage = 'Não foi possível buscar as temporadas, tente novamente';
 // get_seasons_repository
 
+// get_country_seasons_repository
+const getCountrySeasonsRepositoryServerFailureTitle = 'Ocorreu um erro';
+const getCountrySeasonsRepositoryServerFailureMessage = 'Não foi possível buscar as ligas deste país e temporada, tente novamente';
+// get_country_seasons_repository

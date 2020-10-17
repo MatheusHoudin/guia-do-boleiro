@@ -11,6 +11,7 @@ import 'package:guia_do_boleiro/features/get_seasons/presentation/widgets/season
 import 'package:guia_do_boleiro/features/pick_country/domain/controller/get_countries_controller.dart';
 import 'package:guia_do_boleiro/shared/model/country.dart';
 import 'package:guia_do_boleiro/shared/model/country_with_season.dart';
+import 'package:guia_do_boleiro/shared/widgets/loading_ball.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PickCountryPage extends StatelessWidget {
@@ -75,7 +76,7 @@ class PickCountryPage extends StatelessWidget {
                 flex: 1,
                 child: GetBuilder<GetCountriesController>(
                   builder: (c) => (c.isLoadingCountries.value)
-                      ? ContinueButtonLoading()
+                      ? Container()
                       : ContinueButton(),
                 )
               )
@@ -99,24 +100,6 @@ class PickCountryPage extends StatelessWidget {
           pickCountryPageContinueButton,
           style: GoogleFonts.firaSans(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
-        ),
-      ),
-    );
-  }
-
-  Widget ContinueButtonLoading() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      child: Shimmer.fromColors(
-        highlightColor: loadingHighlightColor,
-        baseColor: loadingBaseColor,
-        child: Container(
-          height: 20,
-          width: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-            color: Colors.white,
-          ),
         ),
       ),
     );
@@ -147,30 +130,10 @@ class PickCountryPage extends StatelessWidget {
     );
   }
 
-  Widget CountryLoading(double itemPadding) {
-    return Shimmer.fromColors(
-      highlightColor: loadingHighlightColor,
-      baseColor: loadingBaseColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 7,
-            child: Container(
-              padding: EdgeInsets.all(itemPadding),
-              width: Get.width * 0.4,
-              color: Colors.white,
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 14),
-              width: Get.width * 0.28,
-              color: Colors.white,
-            ),
-          )
-        ],
+  Widget CountryLoading() {
+    return Center(
+      child: LoadingBall(
+        size: 60,
       ),
     );
   }
@@ -193,7 +156,12 @@ class PickCountryPage extends StatelessWidget {
                 child: SvgPicture.network(
                   country.flagUrl,
                   fit: BoxFit.fill,
-                  placeholderBuilder: (context) => Text('djskad'),
+                  placeholderBuilder: (context) => Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 40
+                    ),
+                    child: LoadingBall(size: 60,),
+                  ),
                 ),
               ),
             ),
@@ -219,7 +187,7 @@ class PickCountryPage extends StatelessWidget {
     return GetBuilder<GetCountriesController>(
       initState: (_) => GetCountriesController.to.fetchCountries(),
       builder: (c) => c.isLoadingCountries.value
-          ? CountriesLoading()
+          ? CountryLoading()
           : PageView.builder(
               onPageChanged: (page) => c.onSelectCountry(page),
               controller: pageViewController,
@@ -230,20 +198,6 @@ class PickCountryPage extends StatelessWidget {
                     c.countriesDispaly[index].padding);
               },
             ),
-    );
-  }
-
-  Widget CountriesLoading() {
-    return Container(
-      width: Get.width,
-      height: Get.height * 0.2,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          CountryLoading(10),
-          CountryLoading(10),
-        ],
-      ),
     );
   }
 }

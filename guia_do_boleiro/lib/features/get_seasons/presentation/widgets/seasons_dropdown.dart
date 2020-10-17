@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guia_do_boleiro/core/constants/colors.dart';
 import 'package:guia_do_boleiro/features/get_seasons/domain/controller/get_seasons_controller.dart';
+import 'package:guia_do_boleiro/shared/widgets/loading_ball.dart';
 import 'package:shimmer/shimmer.dart';
 
 class SeasonsDropdown extends StatelessWidget {
@@ -53,18 +54,8 @@ class SeasonsDropdown extends StatelessWidget {
   }
 
   Widget SeasonsLoading() {
-    return Shimmer.fromColors(
-      highlightColor: loadingHighlightColor,
-      baseColor: loadingBaseColor,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.circular(10)
-        ),
-        margin: EdgeInsets.symmetric(
-          horizontal: 20
-        ),
-      ),
+    return Center(
+      child: LoadingBall(size: 40,),
     );
   }
 }
