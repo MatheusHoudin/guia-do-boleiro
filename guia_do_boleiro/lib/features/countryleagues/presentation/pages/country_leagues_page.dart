@@ -8,6 +8,7 @@ import 'package:guia_do_boleiro/core/constants/texts.dart';
 import 'package:guia_do_boleiro/features/countryleagues/domain/controller/get_country_leagues_controller.dart';
 import 'package:guia_do_boleiro/shared/model/country_with_season.dart';
 import 'package:guia_do_boleiro/shared/model/league.dart';
+import 'package:guia_do_boleiro/shared/widgets/custom_search.dart';
 import 'package:guia_do_boleiro/shared/widgets/loading_ball.dart';
 
 class CountryLeaguesPage extends StatelessWidget {
@@ -184,30 +185,11 @@ class CountryLeaguesPage extends StatelessWidget {
   }
 
   Widget LeaguesFilterEditText() {
-    return TextField(
+    return CustomSearch(
       controller: GetCountryLeaguesController.to.leagueFilterController,
-      cursorColor: secondaryColor,
-      style: FilterLeaguesTextStyle(Colors.white),
-      onChanged: (filter) =>
-          GetCountryLeaguesController.to.filterLeagues(filter),
-      decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
-          ),
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-              borderSide: BorderSide(color: Colors.white, width: 2)),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(4),
-              borderSide: BorderSide(color: secondaryColor, width: 2)),
-          hintText: countryLeaguesPageFilterLeagueHint,
-          hintStyle: FilterLeaguesTextStyle(Colors.white70)),
+      onChanged: (filter) => GetCountryLeaguesController.to.filterLeagues(filter),
+      hint: countryLeaguesPageFilterLeagueHint,
     );
-  }
-
-  TextStyle FilterLeaguesTextStyle(Color color) {
-    return GoogleFonts.firaSans(
-        color: color, fontSize: 16, fontWeight: FontWeight.bold);
   }
 
   Widget Leagues() {

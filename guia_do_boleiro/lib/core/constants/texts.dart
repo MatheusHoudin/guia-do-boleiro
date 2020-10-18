@@ -12,8 +12,11 @@ const noInternetConnectionMessage = "Olha, achamos que sua conexão com a intern
 //pick_country_page
 const pickCountryPageInstructions = 'Selecione um país e uma temporada para ver jogos, times, estatísticas e muito mais.';
 const pickCountryPageContinueButton = 'Avançar';
-const notSelectedSeasonDialogTitle = "Ops...";
-const notSelectedSeasonDialogBody = "Selecione uma temporada antes de prosseguir";
+const pickCountryNotSelectedSeasonDialogTitle = "Ops...";
+const pickCountryNotSelectedSeasonDialogBody = "Selecione uma temporada antes de prosseguir";
+const pickCountryNotSelectedCountryDialogTitle = "Ops...";
+const pickCountryNotSelectedCountryDialogBody = "Selecione uma país antes de prosseguir";
+const pickCountryCountriesFilterHint = 'Pesquise o país desejado';
 //pick_country_page
 
 //country_leagues_page

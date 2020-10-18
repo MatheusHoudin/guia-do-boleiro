@@ -2,17 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:guia_do_boleiro/core/constants/assets.dart';
 import 'package:guia_do_boleiro/core/constants/routes.dart';
+import 'package:guia_do_boleiro/core/constants/texts.dart';
 import 'package:guia_do_boleiro/core/error/failure/failure.dart';
 import 'package:guia_do_boleiro/core/ui/one_button_dialog.dart';
 import 'package:guia_do_boleiro/features/pick_country/domain/usecase/get_countries_list_use_case.dart';
 import 'package:guia_do_boleiro/shared/model/country.dart';
 import 'package:guia_do_boleiro/shared/model/country_with_season.dart';
-import 'package:guia_do_boleiro/core/constants/texts.dart';
 
 class GetCountriesController extends GetxController {
   final GetCountriesListUseCase getCountriesListUseCase;
 
+  final TextEditingController countriesFilterController =
+      TextEditingController();
+
   var countriesDispaly = <CountryWithPadding>[].obs;
+  var countriesDispalyFiltered = <CountryWithPadding>[].obs;
   var isLoadingCountries = true.obs;
   var lastSelectedIndex = 0;
   final defaultPadding = 30.0;
@@ -32,7 +36,7 @@ class GetCountriesController extends GetxController {
           message: failure.message,
           image: sadIcon,
         ));
-      }else{
+      } else {
         Get.dialog(OneButtonDialog(
           title: noInternetConnectionTitle,
           message: noInternetConnectionMessage,
@@ -41,26 +45,25 @@ class GetCountriesController extends GetxController {
       }
     }, (countriesResult) {
       isLoadingCountries.value = false;
-      countriesDispaly.value = countriesResult.asMap()
+      var countries = countriesResult
+          .asMap()
           .map((index, country) => MapEntry(
               index,
               CountryWithPadding(
                   country: country,
                   padding:
-                      index == 0 ?
-                      growingContentPadding
-                          :
-                      defaultPadding
-              )))
+                      index == 0 ? growingContentPadding : defaultPadding)))
           .values
           .toList();
+      countriesDispaly.value = countries;
+      countriesDispalyFiltered.value = countries;
       update();
     });
   }
 
   void onSelectCountry(int index) {
-    countriesDispaly[lastSelectedIndex].padding = defaultPadding;
-    countriesDispaly[index].padding = growingContentPadding;
+    countriesDispalyFiltered[lastSelectedIndex].padding = defaultPadding;
+    countriesDispalyFiltered[index].padding = growingContentPadding;
     lastSelectedIndex = index;
     update();
   }
@@ -68,20 +71,47 @@ class GetCountriesController extends GetxController {
   void continueToCountryLeaguesPage(String season) {
     if (season.isEmpty) {
       Get.defaultDialog(
-        title: notSelectedSeasonDialogTitle,
-        content: Text(notSelectedSeasonDialogBody),
+        title: pickCountryNotSelectedSeasonDialogTitle,
+        content: Text(pickCountryNotSelectedSeasonDialogBody),
       );
-    }else{
-      Get.toNamed(countryLeaguesPageRoute,
-          arguments: CountryWithSeason(
-              country: _getSelectedCountry(),
-              season: season
-          )
-      );
+    } else {
+      var selectedCountry = _getSelectedCountry();
+
+      if (selectedCountry != null) {
+        Get.toNamed(countryLeaguesPageRoute,
+            arguments:
+                CountryWithSeason(country: selectedCountry, season: season));
+      } else {
+        Get.defaultDialog(
+          title: pickCountryNotSelectedCountryDialogTitle,
+          content: Text(pickCountryNotSelectedCountryDialogBody),
+        );
+      }
     }
   }
 
-  Country _getSelectedCountry() => countriesDispaly[lastSelectedIndex].country;
+  void filterCountries(String filter) {
+    countriesDispalyFiltered[lastSelectedIndex].padding = defaultPadding;
+    if (filter.isEmpty) {
+      countriesDispalyFiltered.value = countriesDispaly;
+    } else {
+      countriesDispalyFiltered.value = countriesDispaly
+          .where((c) =>
+          c.country.country.toUpperCase().contains(filter.toUpperCase()))
+          .toList();
+    }
+    countriesDispalyFiltered[0].padding = growingContentPadding;
+    lastSelectedIndex = 0;
+    update();
+  }
+
+  Country _getSelectedCountry() => countriesDispalyFiltered.length > 0
+      ? countriesDispalyFiltered[lastSelectedIndex].country
+      : null;
+
+  void dispose() {
+    countriesFilterController.dispose();
+  }
 }
 
 class CountryWithPadding {

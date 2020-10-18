@@ -9,6 +9,7 @@ import 'package:guia_do_boleiro/features/get_seasons/domain/controller/get_seaso
 import 'package:guia_do_boleiro/features/get_seasons/presentation/widgets/seasons_dropdown.dart';
 import 'package:guia_do_boleiro/features/pick_country/domain/controller/get_countries_controller.dart';
 import 'package:guia_do_boleiro/shared/model/country.dart';
+import 'package:guia_do_boleiro/shared/widgets/custom_search.dart';
 import 'package:guia_do_boleiro/shared/widgets/loading_ball.dart';
 
 class PickCountryPage extends StatelessWidget {
@@ -50,6 +51,10 @@ class PickCountryPage extends StatelessWidget {
                     ),
                   ),
                 ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Search(),
               ),
               Expanded(
                 flex: 4,
@@ -110,7 +115,7 @@ class PickCountryPage extends StatelessWidget {
           padding: EdgeInsets.only(top: 30, bottom: 10),
           child: Image.asset(
             appIcon,
-            scale: 2.5,
+            scale: 3,
           ),
         ),
         Expanded(
@@ -183,6 +188,20 @@ class PickCountryPage extends StatelessWidget {
     );
   }
 
+  Widget Search() {
+    return Container(
+      margin: EdgeInsets.only(
+        left: 20,
+        right: 20
+      ),
+      child: CustomSearch(
+        controller: GetCountriesController.to.countriesFilterController,
+        onChanged: (filter) => GetCountriesController.to.filterCountries(filter),
+        hint: pickCountryCountriesFilterHint,
+      ),
+    );
+  }
+
   Widget CountriesScrollableView() {
     return GetBuilder<GetCountriesController>(
       initState: (_) => GetCountriesController.to.fetchCountries(),
@@ -192,10 +211,10 @@ class PickCountryPage extends StatelessWidget {
               onPageChanged: (page) => c.onSelectCountry(page),
               controller: pageViewController,
               scrollDirection: Axis.horizontal,
-              itemCount: c.countriesDispaly.length,
+              itemCount: c.countriesDispalyFiltered.length,
               itemBuilder: (context, index) {
-                return CountryItem(c.countriesDispaly[index].country,
-                    c.countriesDispaly[index].padding);
+                return CountryItem(c.countriesDispalyFiltered[index].country,
+                    c.countriesDispalyFiltered[index].padding);
               },
             ),
     );
