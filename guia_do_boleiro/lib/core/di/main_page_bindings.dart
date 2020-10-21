@@ -12,7 +12,8 @@ class MainPageBindings implements Bindings {
       BaseOptions(
         baseUrl: apiBaseUrl,
         headers: {
-          "x-rapidapi-key": apiKey
+          apiKeyHeader: apiKey,
+          apiHostHeader: apiHost
         }
       )
     ));

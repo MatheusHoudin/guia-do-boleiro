@@ -1,4 +1,4 @@
-const appName = 'Guia do Boleiro';
+const appName = 'Soccer World';
 
 //dialog
 const ok = "OK";
@@ -6,36 +6,42 @@ const ok = "OK";
 
 //failures
 const noInternetConnectionTitle = "Ops...";
-const noInternetConnectionMessage = "Olha, achamos que sua conexão com a internet não está legal.";
+const noInternetConnectionMessage = "You may have a connection issue, would you mind checking it?";
 //failures
 
 //pick_country_page
-const pickCountryPageInstructions = 'Selecione um país e uma temporada para ver jogos, times, estatísticas e muito mais.';
-const pickCountryPageContinueButton = 'Avançar';
+const pickCountryPageInstructions = 'Pick up a country and season to get full details on matches, teams, statistics and more';
+const pickCountryPageContinueButton = 'Continue';
 const pickCountryNotSelectedSeasonDialogTitle = "Ops...";
-const pickCountryNotSelectedSeasonDialogBody = "Selecione uma temporada antes de prosseguir";
+const pickCountryNotSelectedSeasonDialogBody = "You must select a season";
 const pickCountryNotSelectedCountryDialogTitle = "Ops...";
-const pickCountryNotSelectedCountryDialogBody = "Selecione uma país antes de prosseguir";
-const pickCountryCountriesFilterHint = 'Pesquise o país desejado';
+const pickCountryNotSelectedCountryDialogBody = "You must select a country";
+const pickCountryCountriesFilterHint = 'Search your desired country';
 //pick_country_page
 
 //country_leagues_page
-const countryLeaguesPageInfo = 'Selecione uma das ligas abaixo para ver times, jogos e estatísticas.';
-const countryLeaguesPageFilterLeagueHint = 'Qual liga você procura?';
-const countryLeaguesPageThereAreNoLeagues = 'Não existem ligas desse pais no ano selecionado, que tal selecionar outro período?';
+const countryLeaguesPageInfo = 'Select one of the leagues below to get full details on matches, teams, statistics and more';
+const countryLeaguesPageFilterLeagueHint = 'Which league are you looking for?';
+const countryLeaguesPageThereAreNoLeagues = 'There are no leagues with the country and season selected, what about trying out another season?';
+var countryLeaguesPageFromToFunction = (start, end) => "From $start to $end";
 //country_leagues_page
 
 // get_country_repository
-const getCountryRepositoryServerFailureTitle = 'Ocorreu um erro';
-const getCountryRepositoryServerFailureMessage = 'Não foi possível buscar os países, tente novamente';
+const getCountryRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
+const getCountryRepositoryServerFailureMessage = 'We could not fetch countries, please try again';
 // get_country_repository
 
 // get_seasons_repository
-const getSeasonsRepositoryServerFailureTitle = 'Ocorreu um erro';
-const getSeasonsRepositoryServerFailureMessage = 'Não foi possível buscar as temporadas, tente novamente';
+const getSeasonsRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
+const getSeasonsRepositoryServerFailureMessage = 'We could not fetch seasons, please try again';
 // get_seasons_repository
 
 // get_country_seasons_repository
-const getCountrySeasonsRepositoryServerFailureTitle = 'Ocorreu um erro';
-const getCountrySeasonsRepositoryServerFailureMessage = 'Não foi possível buscar as ligas deste país e temporada, tente novamente';
+const getCountrySeasonsRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
+const getCountrySeasonsRepositoryServerFailureMessage = 'We could not fetch leagues from the selected country and season, please try again';
 // get_country_seasons_repository
+
+// get_live_fixtures_from_league_repository
+const getLiveFixturesFromLeagueRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
+const getLiveFixturesFromLeagueRepositoryServerFailureMessage = 'We could not fetch fixtures, please try again';
+// get_live_fixtures_from_league_repository

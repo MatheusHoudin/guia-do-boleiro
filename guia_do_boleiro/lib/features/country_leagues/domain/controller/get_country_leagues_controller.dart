@@ -4,7 +4,7 @@ import 'package:guia_do_boleiro/core/constants/assets.dart';
 import 'package:guia_do_boleiro/core/constants/texts.dart';
 import 'package:guia_do_boleiro/core/error/failure/failure.dart';
 import 'package:guia_do_boleiro/core/ui/one_button_dialog.dart';
-import 'package:guia_do_boleiro/features/countryleagues/domain/usecase/get_country_leagues_use_case.dart';
+import 'package:guia_do_boleiro/features/country_leagues/domain/usecase/get_country_leagues_use_case.dart';
 import 'package:guia_do_boleiro/shared/model/league.dart';
 
 class GetCountryLeaguesController extends GetxController {

@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:guia_do_boleiro/core/constants/assets.dart';
 import 'package:guia_do_boleiro/core/constants/colors.dart';
 import 'package:guia_do_boleiro/core/constants/texts.dart';
-import 'package:guia_do_boleiro/features/countryleagues/domain/controller/get_country_leagues_controller.dart';
+import 'package:guia_do_boleiro/features/country_leagues/domain/controller/get_country_leagues_controller.dart';
 import 'package:guia_do_boleiro/shared/model/country_with_season.dart';
 import 'package:guia_do_boleiro/shared/model/league.dart';
 import 'package:guia_do_boleiro/shared/widgets/custom_search.dart';
@@ -209,75 +209,78 @@ class CountryLeaguesPage extends StatelessWidget {
   }
 
   Widget LeagueItem(League league) {
-    return Container(
-      width: Get.width,
-      height: Get.width * 0.3,
-      child: Card(
-        child: Padding(
-          padding: EdgeInsets.all(6),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Image.network(league.logo),
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              VerticalDivider(
-                width: 1,
-                color: primaryColor,
-                thickness: 2,
-                indent: 20,
-                endIndent: 20,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                flex: 7,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      league.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.firaSans(
-                          color: primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    Text(
-                      league.type,
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.firaSans(
-                          color: primaryColor, fontSize: 18),
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    Visibility(
-                      visible: (league.seasonStart != null && league.seasonStart != null),
-                      child: Text(
-                        "De ${league.seasonStart} até ${league.seasonEnd}",
+    return GestureDetector(
+      onTap: () => Get.defaultDialog(title: league.leagueId.toString()),
+      child: Container(
+        width: Get.width,
+        height: Get.width * 0.3,
+        child: Card(
+          child: Padding(
+            padding: EdgeInsets.all(6),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Image.network(league.logo),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                VerticalDivider(
+                  width: 1,
+                  color: primaryColor,
+                  thickness: 2,
+                  indent: 20,
+                  endIndent: 20,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        league.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.firaSans(
+                            color: primaryColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Text(
+                        league.type,
                         maxLines: 1,
                         textAlign: TextAlign.start,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.firaSans(
-                            color: secondaryColor, fontSize: 14),
+                            color: primaryColor, fontSize: 18),
                       ),
-                    )
-                  ],
-                ),
-              )
-            ],
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Visibility(
+                        visible: (league.seasonStart != null && league.seasonStart != null),
+                        child: Text(
+                          countryLeaguesPageFromToFunction(league.seasonStart, league.seasonEnd),
+                          maxLines: 1,
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.ellipsis,
+                          style: GoogleFonts.firaSans(
+                              color: secondaryColor, fontSize: 14),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
