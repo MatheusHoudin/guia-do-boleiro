@@ -8,16 +8,20 @@ class CountryLeaguesPageBindings implements Bindings {
 
   @override
   void dependencies() {
+    // Remote data sources
     Get.lazyPut<GetCountryLeaguesRemoteDataSource>(() =>
         GetCountryLeaguesRemoteDataSourceImpl(client: Get.find()));
 
+    // Repositories
     Get.lazyPut<GetCountryLeaguesRepository>(() => GetCountryLeaguesRepositoryImpl(
       networkInfo: Get.find(),
       remoteDataSourceImpl: Get.find()
     ));
 
+    // Use cases
     Get.lazyPut<GetCountryLeaguesUseCase>(() => GetCountryLeaguesUseCase(repository: Get.find()));
 
+    // Controllers
     Get.put<GetCountryLeaguesController>(GetCountryLeaguesController(useCase: Get.find()));
   }
 }

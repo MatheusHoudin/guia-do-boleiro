@@ -5,7 +5,7 @@ import 'package:guia_do_boleiro/shared/datasource/fixtures/round/get/get_round_f
 import 'package:guia_do_boleiro/shared/model/fixture.dart';
 
 abstract class GetRoundFixturesRepository {
-  Future<Either<Failure, List<Fixture>>> getRoundFixtures(String league,
+  Future<Either<Failure, List<Fixture>>> getRoundFixtures(int league,
       String round);
 }
 
@@ -16,7 +16,7 @@ class GetRoundFixturesRepositoryImpl extends GetRoundFixturesRepository {
   GetRoundFixturesRepositoryImpl({this.remoteDataSource, this.networkInfo});
 
   @override
-  Future<Either<Failure, List<Fixture>>> getRoundFixtures(String league, String round) async {
+  Future<Either<Failure, List<Fixture>>> getRoundFixtures(int league, String round) async {
     if (await networkInfo.isConnected) {
       final response = await remoteDataSource.getRoundFixtures(league, round);
       return Right(response);

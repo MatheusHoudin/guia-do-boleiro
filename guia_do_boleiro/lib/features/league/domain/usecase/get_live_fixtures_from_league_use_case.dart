@@ -5,10 +5,10 @@ import 'package:guia_do_boleiro/core/usecase/base_use_case.dart';
 import 'package:guia_do_boleiro/shared/model/fixture.dart';
 import 'package:guia_do_boleiro/shared/repository/fixtures/live/get/get_live_fixtures_from_league_repository.dart';
 
-class GetLiveFixturesFromleagueUseCase extends BaseUseCase<List<Fixture>, GetLiveFixturesFromLeagueParams> {
+class GetLiveFixturesFromLeagueUseCase extends BaseUseCase<List<Fixture>, GetLiveFixturesFromLeagueParams> {
   final GetLiveFixturesFromLeagueRepository repository;
 
-  GetLiveFixturesFromleagueUseCase({this.repository});
+  GetLiveFixturesFromLeagueUseCase({this.repository});
 
   @override
   Future<Either<Failure, List<Fixture>>> call(GetLiveFixturesFromLeagueParams params) async {

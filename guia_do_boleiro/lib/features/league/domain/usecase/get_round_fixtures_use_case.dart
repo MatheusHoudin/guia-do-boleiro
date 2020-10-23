@@ -20,7 +20,7 @@ class GetRoundFixturesUseCase
 }
 
 class RoundFixturesParams extends Equatable {
-  final String league;
+  final int league;
   final String round;
 
   RoundFixturesParams({this.league, this.round});

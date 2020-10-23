@@ -210,7 +210,7 @@ class CountryLeaguesPage extends StatelessWidget {
 
   Widget LeagueItem(League league) {
     return GestureDetector(
-      onTap: () => Get.defaultDialog(title: league.leagueId.toString()),
+      onTap: () => GetCountryLeaguesController.to.continueToLeaguePage(league),
       child: Container(
         width: Get.width,
         height: Get.width * 0.3,
@@ -221,7 +221,10 @@ class CountryLeaguesPage extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 3,
-                  child: Image.network(league.logo),
+                  child: Hero(
+                    tag: league.logo,
+                    child: Image.network(league.logo),
+                  ),
                 ),
                 SizedBox(
                   width: 10,

@@ -3,7 +3,7 @@ import 'package:guia_do_boleiro/core/error/exception/exception.dart';
 import 'package:guia_do_boleiro/shared/model/fixture.dart';
 
 abstract class GetRoundFixturesRemoteDataSource {
-  Future<List<Fixture>> getRoundFixtures(String league, String round);
+  Future<List<Fixture>> getRoundFixtures(int league, String round);
 }
 
 class GetRoundFixturesRemoteDataSourceImpl extends GetRoundFixturesRemoteDataSource {
@@ -12,7 +12,7 @@ class GetRoundFixturesRemoteDataSourceImpl extends GetRoundFixturesRemoteDataSou
   GetRoundFixturesRemoteDataSourceImpl({this.client});
 
   @override
-  Future<List<Fixture>> getRoundFixtures(String league, String round) async {
+  Future<List<Fixture>> getRoundFixtures(int league, String round) async {
     try {
       final response = await client.get('fixtures/leagues/$league/$round');
 

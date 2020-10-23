@@ -11,31 +11,35 @@ import 'package:guia_do_boleiro/shared/repository/season/get/get_seasons_reposit
 class PickCountryPageBindings implements Bindings {
   @override
   void dependencies() {
-    // GetCountry
+    // Remote data sources
     Get.lazyPut<GetCountryRemoteDataSource>(() => GetCountryRemoteDataSourceImpl(
       client: Get.find()
     ));
+    Get.lazyPut<GetSeasonsRemoteDataSource>(() => GetSeasonsRemoteDataSourceImpl(
+        client: Get.find()
+    ));
+
+    // Repositories
     Get.lazyPut<GetCountryRepository>(() => GetCountryRepositoryImpl(
       networkInfo: Get.find(),
       remoteDataSource: Get.find()
     ));
+    Get.lazyPut<GetSeasonsRepository>(() => GetSeasonsRepositoryImpl(
+        networkInfo: Get.find(),
+        getSeasonRemoteDataSource: Get.find()
+    ));
+
+    // Use cases
     Get.lazyPut<GetCountriesListUseCase>(() => GetCountriesListUseCase(
       getCountryRepository: Get.find()
     ));
-    Get.put<GetCountriesController>(GetCountriesController(
-      getCountriesListUseCase: Get.find()
-    ));
-
-    // GetSeasons
-    Get.lazyPut<GetSeasonsRemoteDataSource>(() => GetSeasonsRemoteDataSourceImpl(
-      client: Get.find()
-    ));
-    Get.lazyPut<GetSeasonsRepository>(() => GetSeasonsRepositoryImpl(
-      networkInfo: Get.find(),
-      getSeasonRemoteDataSource: Get.find()
-    ));
     Get.lazyPut<GetSeasonsUseCase>(() => GetSeasonsUseCase(
       repository: Get.find()
+    ));
+
+    // Controllers
+    Get.put<GetCountriesController>(GetCountriesController(
+        getCountriesListUseCase: Get.find()
     ));
     Get.put<GetSeasonsController>(GetSeasonsController(
       useCase: Get.find()

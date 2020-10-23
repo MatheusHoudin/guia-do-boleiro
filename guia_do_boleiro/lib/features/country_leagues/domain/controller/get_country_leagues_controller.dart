@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:guia_do_boleiro/core/constants/assets.dart';
+import 'package:guia_do_boleiro/core/constants/routes.dart';
 import 'package:guia_do_boleiro/core/constants/texts.dart';
 import 'package:guia_do_boleiro/core/error/failure/failure.dart';
 import 'package:guia_do_boleiro/core/ui/one_button_dialog.dart';
@@ -57,6 +58,10 @@ class GetCountryLeaguesController extends GetxController {
     }
     print(leaguesFiltered);
     update();
+  }
+
+  void continueToLeaguePage(League selectedLeague) {
+    Get.toNamed(leaguePageRoute, arguments: selectedLeague);
   }
 
   void dispose() {

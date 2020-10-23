@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 import 'package:guia_do_boleiro/core/error/failure/failure.dart';
 import 'package:guia_do_boleiro/core/usecase/base_use_case.dart';
 import 'package:guia_do_boleiro/shared/model/fixture.dart';
-import 'package:guia_do_boleiro/shared/repository/fixtures/round/get/get_round_fixtures_repository.dart';
 import 'package:guia_do_boleiro/shared/repository/fixtures/today/get/get_today_fixtures_repository.dart';
 
 class GetTodayFixturesUseCase extends BaseUseCase<List<Fixture>,GetTodayFixturesParams> {
