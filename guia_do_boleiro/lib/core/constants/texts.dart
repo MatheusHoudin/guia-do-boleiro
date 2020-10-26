@@ -19,6 +19,12 @@ const pickCountryNotSelectedCountryDialogBody = "You must select a country";
 const pickCountryCountriesFilterHint = 'Search your desired country';
 //pick_country_page
 
+//league_page
+const leaguePageSearchForStatisticsWithAnyRound = "Search for games and statistics from any round";
+const leaguePageSearchForRound = "Search here your desired round";
+const leaguePageSearchContinue = "Search";
+//league_page
+
 //country_leagues_page
 const countryLeaguesPageInfo = 'Select one of the leagues below to get full details on matches, teams, statistics and more';
 const countryLeaguesPageFilterLeagueHint = 'Which league are you looking for?';
@@ -45,3 +51,8 @@ const getCountrySeasonsRepositoryServerFailureMessage = 'We could not fetch leag
 const getLiveFixturesFromLeagueRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
 const getLiveFixturesFromLeagueRepositoryServerFailureMessage = 'We could not fetch fixtures, please try again';
 // get_live_fixtures_from_league_repository
+
+// get_league_rounds_repository
+const getLeagueRoundsRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
+const getLeagueRoundsRepositoryServerFailureMessage = 'We could not fetch the league rounds, please try again';
+// get_league_rounds_repository

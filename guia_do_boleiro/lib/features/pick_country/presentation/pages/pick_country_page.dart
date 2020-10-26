@@ -19,8 +19,6 @@ class PickCountryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print((GetCountriesController.to.isLoadingCountries.value ||
-        GetSeasonsController.to.isLoadingSeasons.value));
     return Scaffold(
       backgroundColor: primaryColor,
       body: SingleChildScrollView(
