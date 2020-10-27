@@ -5,6 +5,7 @@ import 'package:guia_do_boleiro/core/error/failure/failure.dart';
 import 'package:guia_do_boleiro/core/ui/one_button_dialog.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_league_rounds_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_live_fixtures_from_league_use_case.dart';
+import 'package:guia_do_boleiro/features/league/domain/usecase/get_next_fixtures_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_round_fixtures_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_today_fixtures_use_case.dart';
 import 'package:guia_do_boleiro/shared/model/fixture.dart';
@@ -14,10 +15,12 @@ class LeagueController extends GetxController {
   final GetTodayFixturesUseCase getTodayFixturesUseCase;
   final GetRoundFixturesUseCase getRoundFixturesUseCase;
   final GetLeagueRoundsUseCase getLeagueRoundsUseCase;
+  final GetNextFixturesFromLeagueUseCase getNextFixturesFromLeagueUseCase;
 
   var isLoadingLiveFixtures = false.obs;
   var isLoadingTodayFixtures = false.obs;
   var isLoadingRoundFixtures = false.obs;
+  var isLoadingNextFixtures = false.obs;
   var isLoadingLeagueRoundsFixtures = false.obs;
 
   var _selectedLeagueRound = "".obs;
@@ -25,17 +28,50 @@ class LeagueController extends GetxController {
   var liveFixtures = <Fixture>[].obs;
   var roundFixtures = <Fixture>[].obs;
   var todayFixtures = <Fixture>[].obs;
+  var nextFixtures = <Fixture>[].obs;
   var leagueRounds = <String>[].obs;
 
   LeagueController(
       {this.getRoundFixturesUseCase,
       this.getTodayFixturesUseCase,
       this.getLiveFixturesFromLeagueUseCase,
-      this.getLeagueRoundsUseCase});
+      this.getLeagueRoundsUseCase,
+      this.getNextFixturesFromLeagueUseCase});
 
   String get selectedRound => _selectedLeagueRound.value;
 
   static LeagueController get to => Get.find();
+
+  void fetchNextFixtures(int leagueId) async {
+    isLoadingNextFixtures.value = true;
+
+    var nextFixturesOrFailure = await getNextFixturesFromLeagueUseCase(GetNextFixturesFromLeagueParams(leagueId: leagueId));
+
+    nextFixturesOrFailure.fold(
+      (failure) {
+        isLoadingNextFixtures.value = false;
+
+        if (failure is ServerFailure) {
+          Get.dialog(OneButtonDialog(
+            title: failure.title,
+            message: failure.message,
+            image: sadIcon,
+          ));
+        } else if (failure is NoInternetConnectionFailure) {
+          Get.dialog(OneButtonDialog(
+            title: noInternetConnectionTitle,
+            message: noInternetConnectionMessage,
+            image: sadIcon,
+          ));
+        }
+      },
+      (fixtures) {
+        isLoadingNextFixtures.value = false;
+        nextFixtures.value = fixtures;
+        update();
+      }
+    );
+  }
 
   void fetchLeagueRounds(int leagueId) async {
     isLoadingLeagueRoundsFixtures.value = true;

@@ -23,6 +23,7 @@ const pickCountryCountriesFilterHint = 'Search your desired country';
 const leaguePageSearchForStatisticsWithAnyRound = "Search for games and statistics from any round";
 const leaguePageSearchForRound = "Search here your desired round";
 const leaguePageSearchContinue = "Search";
+const leaguePageNextFixturesSectionTitle = 'Next league fixtures';
 //league_page
 
 //country_leagues_page
@@ -56,3 +57,18 @@ const getLiveFixturesFromLeagueRepositoryServerFailureMessage = 'We could not fe
 const getLeagueRoundsRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
 const getLeagueRoundsRepositoryServerFailureMessage = 'We could not fetch the league rounds, please try again';
 // get_league_rounds_repository
+
+// get_today_fixtures_repository
+const getTodayFixturesRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
+const getTodayFixturesRepositoryServerFailureMessage = 'We could not fetch today\'s fixtures, please try again';
+// get_today_fixtures_repository
+
+// get_next_fixtures_repository
+const getNextFixturesRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
+const getNextFixturesRepositoryServerFailureMessage = 'We could not fetch next fixtures, please try again';
+// get_next_fixtures_repository
+
+// get_round_fixtures_repository
+const getRoundFixturesRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
+const getRoundFixturesRepositoryServerFailureMessage = 'We could not fetch round fixtures, please try again';
+// get_round_fixtures_repository
