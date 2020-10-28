@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:guia_do_boleiro/core/formatter.dart';
 import 'package:guia_do_boleiro/shared/model/fixture_event.dart';
 import 'package:guia_do_boleiro/shared/model/league.dart';
 import 'package:guia_do_boleiro/shared/model/score.dart';
@@ -46,8 +47,8 @@ class Fixture extends Equatable {
       league: League.fromJson(json['league']),
       homeTeam: Team.fromJson(json['homeTeam']),
       awayTeam: Team.fromJson(json['awayTeam']),
-      eventDate: json['event_date'],
-      round: json['round'],
+      eventDate: json['event_date'] != null ? formatDateTime(json['event_date']) : 'Unknown Event Date',
+      round: json['round'] != null ? formatFixtureRound(json['round']) : 'Unknown Round',
       status: json['status'],
       elapsed: json['elapsed'],
       venue: json['venue'],

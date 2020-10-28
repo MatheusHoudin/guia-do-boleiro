@@ -24,6 +24,7 @@ const leaguePageSearchForStatisticsWithAnyRound = "Search for games and statisti
 const leaguePageSearchForRound = "Search here your desired round";
 const leaguePageSearchContinue = "Search";
 const leaguePageNextFixturesSectionTitle = 'Next league fixtures';
+const leaguePageRoundFixturesSectionTitle = 'League round fixtures';
 //league_page
 
 //country_leagues_page
@@ -31,6 +32,7 @@ const countryLeaguesPageInfo = 'Select one of the leagues below to get full deta
 const countryLeaguesPageFilterLeagueHint = 'Which league are you looking for?';
 const countryLeaguesPageThereAreNoLeagues = 'There are no leagues with the country and season selected, what about trying out another season?';
 var countryLeaguesPageFromToFunction = (start, end) => "From $start to $end";
+const countryLeaguesPageNextFixturesMoreButton = "See all";
 //country_leagues_page
 
 // get_country_repository
@@ -57,6 +59,11 @@ const getLiveFixturesFromLeagueRepositoryServerFailureMessage = 'We could not fe
 const getLeagueRoundsRepositoryServerFailureTitle = 'Unfortunately an error ocurred';
 const getLeagueRoundsRepositoryServerFailureMessage = 'We could not fetch the league rounds, please try again';
 // get_league_rounds_repository
+
+// get_current_round_for_league_repository
+const getCurrentRoundForLeagueRepositoryFailureTitle = 'Unfortunately an error ocurred';
+const getCurrentRoundForLeagueRepositoryFailureMessage = 'We could not fetch current round for league, please try again';
+// get_current_round_for_league_repository
 
 // get_today_fixtures_repository
 const getTodayFixturesRepositoryServerFailureTitle = 'Unfortunately an error ocurred';

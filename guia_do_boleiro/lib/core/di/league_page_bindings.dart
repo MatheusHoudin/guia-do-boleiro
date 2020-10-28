@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:guia_do_boleiro/features/league/domain/controller/league_controller.dart';
+import 'package:guia_do_boleiro/features/league/domain/usecase/get_current_round_for_league_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_league_rounds_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_live_fixtures_from_league_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_next_fixtures_use_case.dart';
@@ -9,11 +10,13 @@ import 'package:guia_do_boleiro/shared/datasource/fixtures/live/get/get_live_fix
 import 'package:guia_do_boleiro/shared/datasource/fixtures/next/get/get_next_fixtures_remote_data_source.dart';
 import 'package:guia_do_boleiro/shared/datasource/fixtures/round/get/get_round_fixtures_remote_data_source.dart';
 import 'package:guia_do_boleiro/shared/datasource/fixtures/today/get/get_today_fixtures_remote_data_source.dart';
+import 'package:guia_do_boleiro/shared/datasource/leagues/round/current/get/get_current_round_for_league_remote_data_source.dart';
 import 'package:guia_do_boleiro/shared/datasource/leagues/round/get/get_league_rounds_remote_data_source.dart';
 import 'package:guia_do_boleiro/shared/repository/fixtures/live/get/get_live_fixtures_from_league_repository.dart';
 import 'package:guia_do_boleiro/shared/repository/fixtures/next/get/get_next_fixtures_repository.dart';
 import 'package:guia_do_boleiro/shared/repository/fixtures/round/get/get_round_fixtures_repository.dart';
 import 'package:guia_do_boleiro/shared/repository/fixtures/today/get/get_today_fixtures_repository.dart';
+import 'package:guia_do_boleiro/shared/repository/leagues/round/current/get_current_round_for_league_repository.dart';
 import 'package:guia_do_boleiro/shared/repository/leagues/round/get/get_league_rounds_repository.dart';
 
 class LeaguePageBindings extends Bindings {
@@ -30,6 +33,7 @@ class LeaguePageBindings extends Bindings {
         () => GetLeagueRoundsRemoteDataSourceImpl(client: Get.find()));
     Get.lazyPut<GetNextFixturesRemoteDataSource>(
         () => GetNextFixturesRemoteDataSourceImpl(client: Get.find()));
+    Get.lazyPut<GetCurrentRoundForLeagueRemoteDataSource>(() => GetCurrentRoundForLeagueRemoteDataSourceImpl(client: Get.find()));
 
     // Repositories
     Get.lazyPut<GetTodayFixturesRepository>(() =>
@@ -46,6 +50,7 @@ class LeaguePageBindings extends Bindings {
             remoteDataSource: Get.find(), networkInfo: Get.find()));
     Get.lazyPut<GetNextFixturesRepository>(() => GetNextFixturesRepositoryImpl(
         networkInfo: Get.find(), remoteDataSource: Get.find()));
+    Get.lazyPut<GetCurrentRoundForLeagueRepository>(() => GetCurrentRoundForLeagueRepositoryImpl(remoteDataSource: Get.find(), networkInfo: Get.find()));
 
     // Use cases
     Get.lazyPut<GetLiveFixturesFromLeagueUseCase>(
@@ -58,6 +63,7 @@ class LeaguePageBindings extends Bindings {
         () => GetLeagueRoundsUseCase(repository: Get.find()));
     Get.lazyPut<GetNextFixturesFromLeagueUseCase>(
         () => GetNextFixturesFromLeagueUseCase(repository: Get.find()));
+    Get.lazyPut<GetCurrentRoundForLeagueUseCase>(() => GetCurrentRoundForLeagueUseCase(repository: Get.find()));
 
     // Controllers
     Get.put<LeagueController>(LeagueController(
@@ -65,6 +71,8 @@ class LeaguePageBindings extends Bindings {
         getRoundFixturesUseCase: Get.find(),
         getTodayFixturesUseCase: Get.find(),
         getLeagueRoundsUseCase: Get.find(),
-        getNextFixturesFromLeagueUseCase: Get.find()));
+        getNextFixturesFromLeagueUseCase: Get.find(),
+        getCurrentRoundForLeagueUseCase: Get.find()
+    ));
   }
 }

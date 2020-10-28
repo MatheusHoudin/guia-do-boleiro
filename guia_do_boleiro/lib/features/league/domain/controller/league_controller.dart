@@ -3,6 +3,7 @@ import 'package:guia_do_boleiro/core/constants/assets.dart';
 import 'package:guia_do_boleiro/core/constants/texts.dart';
 import 'package:guia_do_boleiro/core/error/failure/failure.dart';
 import 'package:guia_do_boleiro/core/ui/one_button_dialog.dart';
+import 'package:guia_do_boleiro/features/league/domain/usecase/get_current_round_for_league_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_league_rounds_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_live_fixtures_from_league_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_next_fixtures_use_case.dart';
@@ -16,12 +17,14 @@ class LeagueController extends GetxController {
   final GetRoundFixturesUseCase getRoundFixturesUseCase;
   final GetLeagueRoundsUseCase getLeagueRoundsUseCase;
   final GetNextFixturesFromLeagueUseCase getNextFixturesFromLeagueUseCase;
+  final GetCurrentRoundForLeagueUseCase getCurrentRoundForLeagueUseCase;
 
   var isLoadingLiveFixtures = false.obs;
   var isLoadingTodayFixtures = false.obs;
   var isLoadingRoundFixtures = false.obs;
   var isLoadingNextFixtures = false.obs;
   var isLoadingLeagueRoundsFixtures = false.obs;
+  var isLoadingCurrentRoundFixtures = false.obs;
 
   var _selectedLeagueRound = "".obs;
 
@@ -36,11 +39,41 @@ class LeagueController extends GetxController {
       this.getTodayFixturesUseCase,
       this.getLiveFixturesFromLeagueUseCase,
       this.getLeagueRoundsUseCase,
-      this.getNextFixturesFromLeagueUseCase});
+      this.getNextFixturesFromLeagueUseCase,
+      this.getCurrentRoundForLeagueUseCase});
 
   String get selectedRound => _selectedLeagueRound.value;
 
   static LeagueController get to => Get.find();
+
+  void fetchCurrentRoundFixtures(int leagueId) async {
+    isLoadingCurrentRoundFixtures.value = true;
+
+    var currentRoundOrFailure = await getCurrentRoundForLeagueUseCase(GetCurrentRoundForLeagueParams(leagueId: leagueId));
+
+    currentRoundOrFailure.fold(
+      (failure) {
+        isLoadingCurrentRoundFixtures.value = false;
+
+        if (failure is ServerFailure) {
+          Get.dialog(OneButtonDialog(
+            title: failure.title,
+            message: failure.message,
+            image: sadIcon,
+          ));
+        } else if (failure is NoInternetConnectionFailure) {
+          Get.dialog(OneButtonDialog(
+            title: noInternetConnectionTitle,
+            message: noInternetConnectionMessage,
+            image: sadIcon,
+          ));
+        }
+      },
+      (currentRound) {
+        _fetchRoundFixtures(currentRound, leagueId);
+      }
+    );
+  }
 
   void fetchNextFixtures(int leagueId) async {
     isLoadingNextFixtures.value = true;
@@ -138,14 +171,13 @@ class LeagueController extends GetxController {
     });
   }
 
-  void fetchRoundFixtures(String round, int leagueId) async {
-    isLoadingRoundFixtures.value = true;
+  void _fetchRoundFixtures(String round, int leagueId) async {
 
     var roundFixturesOrFailure = await getRoundFixturesUseCase(
         RoundFixturesParams(round: round, league: leagueId));
 
     roundFixturesOrFailure.fold((failure) {
-      isLoadingRoundFixtures.value = false;
+      isLoadingCurrentRoundFixtures.value = false;
       if (failure is ServerFailure) {
         Get.dialog(OneButtonDialog(
           title: failure.title,
@@ -160,7 +192,7 @@ class LeagueController extends GetxController {
         ));
       }
     }, (fixtures) {
-      isLoadingRoundFixtures.value = false;
+      isLoadingCurrentRoundFixtures.value = false;
       roundFixtures.value = fixtures;
       update();
     });

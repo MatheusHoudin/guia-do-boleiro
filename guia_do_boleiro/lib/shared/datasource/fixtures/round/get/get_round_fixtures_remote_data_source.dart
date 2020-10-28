@@ -14,8 +14,7 @@ class GetRoundFixturesRemoteDataSourceImpl extends GetRoundFixturesRemoteDataSou
   @override
   Future<List<Fixture>> getRoundFixtures(int league, String round) async {
     try {
-      final response = await client.get('fixtures/leagues/$league/$round');
-
+      final response = await client.get('fixtures/league/$league/$round');
       return (response.data['api']['fixtures'] as List).map((match) => Fixture.fromJson(match)).toList();
     } on DioError {
       throw ServerException();

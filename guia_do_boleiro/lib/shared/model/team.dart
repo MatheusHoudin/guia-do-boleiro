@@ -10,7 +10,7 @@ class Team extends Equatable {
   factory Team.fromJson(Map<String, dynamic> json) {
     return Team(
       id: json['id'],
-      name: json['team_name'],
+      name: json['team_name'].toString().length >= 11 ? '${json['team_name'].toString().substring(0,11)}...' : json['team_name'],
       logo: json['logo'],
     );
   }
