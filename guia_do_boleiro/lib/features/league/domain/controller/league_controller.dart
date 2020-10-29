@@ -10,6 +10,7 @@ import 'package:guia_do_boleiro/features/league/domain/usecase/get_next_fixtures
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_round_fixtures_use_case.dart';
 import 'package:guia_do_boleiro/features/league/domain/usecase/get_today_fixtures_use_case.dart';
 import 'package:guia_do_boleiro/shared/model/fixture.dart';
+import 'package:guia_do_boleiro/shared/model/league_tab.dart';
 
 class LeagueController extends GetxController {
   final GetLiveFixturesFromLeagueUseCase getLiveFixturesFromLeagueUseCase;
@@ -18,6 +19,23 @@ class LeagueController extends GetxController {
   final GetLeagueRoundsUseCase getLeagueRoundsUseCase;
   final GetNextFixturesFromLeagueUseCase getNextFixturesFromLeagueUseCase;
   final GetCurrentRoundForLeagueUseCase getCurrentRoundForLeagueUseCase;
+
+  final tabsItemSelected = [true, false, false].obs;
+
+  final List<LeagueTab> tabs = [
+    LeagueTab(
+      text: todayTabText,
+      onClick: (int leagueId) => LeagueController.to.fetchTodayFixtures(leagueId)
+    ),
+    LeagueTab(
+      text: currentRoundFixturesTabText,
+      onClick: (int leagueId) => LeagueController.to.fetchCurrentRoundFixtures(leagueId)
+    ),
+    LeagueTab(
+      text: nextFixturesTabText,
+      onClick: (int leagueId) => LeagueController.to.fetchNextFixtures(leagueId)
+    ),
+  ].obs;
 
   var isLoadingLiveFixtures = false.obs;
   var isLoadingTodayFixtures = false.obs;
@@ -45,6 +63,13 @@ class LeagueController extends GetxController {
   String get selectedRound => _selectedLeagueRound.value;
 
   static LeagueController get to => Get.find();
+
+  void onChangeViewPager(int index, int leagueId) {
+    tabsItemSelected.value = tabsItemSelected.map((item) => false).toList();
+    tabsItemSelected[index] = true;
+    tabs[index].onClick(leagueId);
+    update();
+  }
 
   void fetchCurrentRoundFixtures(int leagueId) async {
     isLoadingCurrentRoundFixtures.value = true;

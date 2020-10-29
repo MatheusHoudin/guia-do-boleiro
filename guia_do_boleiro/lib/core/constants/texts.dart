@@ -24,7 +24,12 @@ const leaguePageSearchForStatisticsWithAnyRound = "Search for games and statisti
 const leaguePageSearchForRound = "Search here your desired round";
 const leaguePageSearchContinue = "Search";
 const leaguePageNextFixturesSectionTitle = 'Next league fixtures';
-const leaguePageRoundFixturesSectionTitle = 'League round fixtures';
+const leaguePageTodayFixturesSectionTitle = 'Today fixtures';
+const leaguePageRoundFixturesSectionTitle = 'Current round fixtures';
+
+const todayTabText = "Today Fixtures";
+const currentRoundFixturesTabText = "Current Round Fixtures";
+const nextFixturesTabText = "Next fixtures";
 //league_page
 
 //country_leagues_page

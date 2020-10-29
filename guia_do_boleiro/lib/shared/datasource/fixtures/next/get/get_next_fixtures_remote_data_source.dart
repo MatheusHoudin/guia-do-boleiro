@@ -16,7 +16,7 @@ class GetNextFixturesRemoteDataSourceImpl
   Future<List<Fixture>> getNextFixtures(int leagueId) async {
     try {
       final response =
-          await client.get("fixtures/league/$leagueId/next/10");
+          await client.get("fixtures/league/$leagueId/next/30");
 
       var fixtures = (response.data['api']['fixtures'] as List)
           .map((fixture) => Fixture.fromJson(fixture))
