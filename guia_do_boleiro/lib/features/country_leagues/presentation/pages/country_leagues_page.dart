@@ -16,13 +16,15 @@ class CountryLeaguesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    countryWithSeason = Get.arguments as CountryWithSeason;
+    if (Get.arguments != null) countryWithSeason = Get.arguments as CountryWithSeason;
     return SafeArea(
       child: Scaffold(
         backgroundColor: primaryColor,
         body: GetBuilder<GetCountryLeaguesController>(
-          initState: (_) => GetCountryLeaguesController.to.fetchLeagues(
-              countryWithSeason.country.country, countryWithSeason.season),
+          initState: (_) {
+            GetCountryLeaguesController.to.countryWithSeason = countryWithSeason;
+            GetCountryLeaguesController.to.fetchLeagues();
+          },
           dispose: (_) => GetCountryLeaguesController.to.dispose(),
           builder: (c) => Body(),
         ),
@@ -179,7 +181,7 @@ class CountryLeaguesPage extends StatelessWidget {
         countryLeaguesPageInfo,
         textAlign: TextAlign.center,
         style: GoogleFonts.firaSans(
-            color: secondaryColor, fontSize: 20, fontWeight: FontWeight.w900),
+            color: secondaryColor, fontSize: 16, fontWeight: FontWeight.w900),
       ),
     );
   }

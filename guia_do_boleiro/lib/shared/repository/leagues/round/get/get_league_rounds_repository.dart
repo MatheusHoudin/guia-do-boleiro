@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:guia_do_boleiro/core/constants/texts.dart';
 import 'package:guia_do_boleiro/core/error/exception/exception.dart';
 import 'package:guia_do_boleiro/core/error/failure/failure.dart';
+import 'package:guia_do_boleiro/core/formatter.dart';
 import 'package:guia_do_boleiro/core/network/network_info.dart';
 import 'package:guia_do_boleiro/shared/datasource/leagues/round/get/get_league_rounds_remote_data_source.dart';
 
@@ -20,7 +21,7 @@ class GetRoundsFromLeagueRepositoryImpl extends GetRoundsFromLeagueRepository {
     try {
       if (await networkInfo.isConnected) {
         var response = await remoteDataSource.getLeagueRounds(leagueId);
-        response = response.map((round) => 'Round ${round.split('_-_')[1]}').toList();
+        response = response.map((round) => formatRound(round)).toList();
         return Right(response);
       }else{
         return Left(NoInternetConnectionFailure());

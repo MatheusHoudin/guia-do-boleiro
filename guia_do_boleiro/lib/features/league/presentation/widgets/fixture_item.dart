@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:guia_do_boleiro/core/constants/assets.dart';
 import 'package:guia_do_boleiro/shared/model/fixture.dart';
+import 'package:guia_do_boleiro/shared/widgets/loading_ball.dart';
 
 class FixtureItem extends StatelessWidget {
   final Fixture fixture;
@@ -12,26 +13,53 @@ class FixtureItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-          bottom: 20
-      ),
+      margin: EdgeInsets.only(bottom: 20),
       child: Row(
         children: [
           TeamImageAndName(fixture.homeTeam.logo, fixture.homeTeam.name),
-          SizedBox(width: 8,),
+          SizedBox(
+            width: 8,
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
-                  '${fixture.eventDate} - ${fixture.round}',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.firaSans(
-                      color: Colors.white,
-                      fontSize: 14
-                  ),
+                (fixture.status == 'Not Started')
+                    ? Text(
+                        '${fixture.eventDate} - ${fixture.round}',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.firaSans(
+                            color: Colors.white, fontSize: 14),
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            fixture.goalsHomeTeam.toString(),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                                color: Colors.white, fontSize: 14),
+                          ),
+                          (fixture.status != 'Match Finished')
+                              ? LoadingBall(
+                                  size: 14,
+                                )
+                              : SvgPicture.asset(
+                                  loadingBallIcon,
+                                  width: 14,
+                                  height: 14,
+                                ),
+                          Text(
+                            fixture.goalsAwayTeam.toString(),
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.firaSans(
+                                color: Colors.white, fontSize: 14),
+                          ),
+                        ],
+                      ),
+                SizedBox(
+                  height: 4,
                 ),
-                SizedBox(height: 4,),
                 Row(
                   children: [
                     SvgPicture.asset(
@@ -39,16 +67,16 @@ class FixtureItem extends StatelessWidget {
                       height: 14,
                       width: 14,
                     ),
-                    SizedBox(width: 4,),
+                    SizedBox(
+                      width: 4,
+                    ),
                     Expanded(
                       child: Text(
                         fixture.venue,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.firaSans(
-                            color: Colors.grey,
-                            fontSize: 14
-                        ),
+                            color: Colors.grey, fontSize: 14),
                       ),
                     )
                   ],
@@ -56,7 +84,9 @@ class FixtureItem extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 8,),
+          SizedBox(
+            width: 8,
+          ),
           TeamImageAndName(fixture.awayTeam.logo, fixture.awayTeam.name),
         ],
       ),

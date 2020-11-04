@@ -37,4 +37,9 @@ class League extends Equatable {
 
   @override
   List<Object> get props => [leagueId, name, type, seasonStart, seasonEnd, logo, flag, country];
+
+  @override
+  String toString() {
+    return 'League{leagueId: $leagueId, name: $name, type: $type, seasonStart: $seasonStart, seasonEnd: $seasonEnd, logo: $logo, flag: $flag, country: $country}';
+  }
 }

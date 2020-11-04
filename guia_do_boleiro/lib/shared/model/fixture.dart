@@ -77,4 +77,9 @@ class Fixture extends Equatable {
         goalsHomeTeam,
         score
       ];
+
+  @override
+  String toString() {
+    return 'Fixture{fixtureId: $fixtureId, leagueId: $leagueId, league: $league, homeTeam: $homeTeam, awayTeam: $awayTeam, eventDate: $eventDate, round: $round, status: $status, elapsed: $elapsed, venue: $venue, referee: $referee, goalsHomeTeam: $goalsHomeTeam, goalsAwayTeam: $goalsAwayTeam, score: $score, fixtureEvents: $fixtureEvents}';
+  }
 }

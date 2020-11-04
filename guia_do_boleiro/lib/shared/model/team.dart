@@ -18,4 +18,8 @@ class Team extends Equatable {
   @override
   List<Object> get props => [id,name,logo];
 
+  @override
+  String toString() {
+    return 'Team{id: $id, name: $name, logo: $logo}';
+  }
 }

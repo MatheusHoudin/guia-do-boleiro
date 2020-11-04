@@ -217,6 +217,7 @@ class LeagueController extends GetxController {
         ));
       }
     }, (fixtures) {
+      print(fixtures);
       isLoadingCurrentRoundFixtures.value = false;
       roundFixtures.value = fixtures;
       update();
@@ -225,7 +226,6 @@ class LeagueController extends GetxController {
 
   void fetchTodayFixtures(int leagueId) async {
     isLoadingTodayFixtures.value = true;
-
     var todayFixturesOrFailure = await getTodayFixturesUseCase(
         GetTodayFixturesParams(leagueId: leagueId));
 

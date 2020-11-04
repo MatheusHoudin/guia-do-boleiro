@@ -18,4 +18,9 @@ class Score extends Equatable {
   }
   @override
   List<Object> get props => [extraTime, fulltime, halfTime, penalty];
+
+  @override
+  String toString() {
+    return 'Score{fulltime: $fulltime, halfTime: $halfTime, extraTime: $extraTime, penalty: $penalty}';
+  }
 }

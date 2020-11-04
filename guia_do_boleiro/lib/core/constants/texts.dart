@@ -30,6 +30,7 @@ const leaguePageRoundFixturesSectionTitle = 'Current round fixtures';
 const todayTabText = "Today Fixtures";
 const currentRoundFixturesTabText = "Current Round Fixtures";
 const nextFixturesTabText = "Next fixtures";
+const thereAreNoFixtures = 'There are no fixtures in this section, what about trying out another one?';
 //league_page
 
 //country_leagues_page

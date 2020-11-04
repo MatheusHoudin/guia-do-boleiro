@@ -23,63 +23,65 @@ class PickCountryPage extends StatelessWidget {
       backgroundColor: primaryColor,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Container(
-          height: Get.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: AppIconAndName(),
-              ),
-              Expanded(
-                flex: 2,
-                child: Center(
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      pickCountryPageInstructions,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans(
-                          color: secondaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w900),
+        child: SingleChildScrollView(
+          child: Container(
+            height: Get.height * 1.1,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  flex: 3,
+                  child: AppIconAndName(),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Center(
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        pickCountryPageInstructions,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.firaSans(
+                            color: secondaryColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w900),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Search(),
-              ),
-              Expanded(
-                flex: 4,
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      flex: 16,
-                      child: CountriesScrollableView(),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: SeasonsDropdown(),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
+                Expanded(
                   flex: 1,
-                  child: GetBuilder<GetCountriesController>(
-                      builder: (c) => Visibility(
-                            visible: !c.isLoadingCountries.value,
-                            child: ContinueButton(),
-                          )))
-            ],
+                  child: Search(),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 16,
+                        child: CountriesScrollableView(),
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: SeasonsDropdown(),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                    flex: 1,
+                    child: GetBuilder<GetCountriesController>(
+                        builder: (c) => Visibility(
+                              visible: !c.isLoadingCountries.value,
+                              child: ContinueButton(),
+                            )))
+              ],
+            ),
           ),
         ),
       ),

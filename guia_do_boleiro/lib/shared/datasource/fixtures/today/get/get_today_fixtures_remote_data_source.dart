@@ -16,7 +16,7 @@ class GetTodayFixturesRemoteDataSourceImpl
   Future<List<Fixture>> getFixturesFromToday(int leagueId) async {
     try {
       var today = DateTime.now();
-      var formattedToday = '${today.year}/${today.month}/${today.day}';
+      var formattedToday = '${today.year}-${today.month}-${today.day}';
 
       final response =
           await client.get("fixtures/league/$leagueId/$formattedToday");

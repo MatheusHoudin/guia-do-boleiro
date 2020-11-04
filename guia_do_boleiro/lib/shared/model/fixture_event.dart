@@ -57,4 +57,9 @@ class FixtureEvent extends Equatable {
     this.detail,
     this.comments
   ];
+
+  @override
+  String toString() {
+    return 'FixtureEvent{elapsed: $elapsed, elapsedPlus: $elapsedPlus, teamId: $teamId, teamName: $teamName, playerId: $playerId, player: $player, assistId: $assistId, assist: $assist, type: $type, detail: $detail, comments: $comments}';
+  }
 }

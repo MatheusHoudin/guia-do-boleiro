@@ -18,7 +18,7 @@ class LeaguePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    league = Get.arguments as League;
+    if (Get.arguments != null ) league = Get.arguments as League;
     return GetBuilder<LeagueController>(
       initState: (_) {
         LeagueController.to.fetchLeagueRounds(league.leagueId);
@@ -34,15 +34,16 @@ class LeaguePage extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                flex: 4,
+                flex: 3,
                 child: LeagueHeader(),
               ),
               Expanded(
-                flex: 6,
+                flex: 7,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         height: 40,
@@ -76,10 +77,6 @@ class LeaguePage extends StatelessWidget {
                           ],
                         ),
                       )
-                      // NextFixturesSection(leaguePageNextFixturesSectionTitle,
-                      //     c.nextFixtures, c.isLoadingNextFixtures.value),
-                      // NextFixturesSection(leaguePageRoundFixturesSectionTitle,
-                      //     c.roundFixtures, c.isLoadingCurrentRoundFixtures.value),
                     ],
                   ),
                 ),
@@ -103,101 +100,61 @@ class LeaguePage extends StatelessWidget {
   Widget LeagueHeader() {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      child: Column(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            flex: 4,
+          Container(
+            height: Get.height * 0.2,
+            width: Get.width * 0.2,
             child: Hero(
               tag: league.logo,
               child: Image.network(league.logo),
             ),
           ),
           SizedBox(
-            height: 8,
+            width: 12,
           ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              league.name,
-              style: GoogleFonts.firaSans(
-                  textStyle: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold)),
-            ),
-          ),
-          SizedBox(height: 8),
-          Expanded(
-            flex: 1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ClipRRect(
-                  child: SvgPicture.network(
-                    league.flag,
-                    height: 20,
-                    width: 20,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                league.name,
+                style: GoogleFonts.firaSans(
+                    textStyle: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    child: SvgPicture.network(
+                      league.flag,
+                      height: 20,
+                      width: 20,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
                   ),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  league.country,
-                  style: GoogleFonts.firaSans(
-                      textStyle: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold)),
-                )
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          Expanded(
-            flex: 4,
-            child: SearchRound(),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    league.country,
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.firaSans(
+                        textStyle: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
+                  )
+                ],
+              ),
+            ],
           )
         ],
       ),
-    );
-  }
-
-  Widget SearchRound() {
-    return Column(
-      children: [
-        Text(
-          leaguePageSearchForStatisticsWithAnyRound,
-          style: GoogleFonts.firaSans(
-              textStyle: TextStyle(color: secondaryColor, fontSize: 16)),
-        ),
-        SizedBox(
-          height: 8,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(child: RoundsDropdown()),
-            RawMaterialButton(
-              onPressed: () => null,
-              fillColor: secondaryColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
-              ),
-              child: Text(
-                leaguePageSearchContinue,
-                style: GoogleFonts.firaSans(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18),
-              ),
-            )
-          ],
-        )
-      ],
     );
   }
 
